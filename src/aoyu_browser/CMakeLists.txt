@@ -1,0 +1,40 @@
+set(TARGET_NAME aoyu_browser)
+
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+find_package(QT NAMES Qt5 REQUIRED COMPONENTS Widgets)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+
+file(GLOB_RECURSE PROJECT_SOURCES src/*.*)
+
+INCLUDE_DIRECTORIES("${PROJECT_SOURCE_DIR}/src")
+
+message("path:" ${PROJECT_SOURCE_DIR}/src)
+
+
+add_executable(${TARGET_NAME}
+${PROJECT_SOURCES}
+)
+
+target_link_libraries(${TARGET_NAME}
+    PRIVATE
+    Qt${QT_VERSION_MAJOR}::Widgets
+    cef_core
+)
+
+set_target_properties(aoyu_browser PROPERTIES
+    WIN32_EXECUTABLE TRUE
+)
+
+
+
+#install(TARGETS aoyu_browser
+#    BUNDLE DESTINATION .
+#    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}) #CMAKE_INSTALL_LIBDIR
